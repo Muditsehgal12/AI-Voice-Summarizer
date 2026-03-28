@@ -85,9 +85,9 @@ uploaded_file = st.file_uploader("📤 Upload audio file", type=["mp3", "wav"])
 if uploaded_file:
     st.audio(uploaded_file)
 
+    with open("temp_audio.wav", "wb") as f:
+        f.write(uploaded_file.getbuffer())
     file_path = "temp_audio.wav"
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.read())
 
     # ---------------- TRANSCRIPTION ----------------
     with st.spinner("⏳ Converting speech to text..."):
