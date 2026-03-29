@@ -84,6 +84,14 @@ uploaded_file = st.file_uploader("📤 Upload audio file", type=["mp3", "wav"])
 
 if uploaded_file:
     st.audio(uploaded_file)
+    language = st.selectbox(
+    "🌍 Select Language",
+    ["Auto Detect", "English", "Hindi", "Urdu"]
+    )
+    mode = st.radio(
+        "⚙️ Mode",
+        ["Transcribe", "Translate to English"]
+    )
 
     with open("temp_audio.wav", "wb") as f:
         f.write(uploaded_file.getbuffer())
@@ -91,7 +99,7 @@ if uploaded_file:
 
     # ---------------- TRANSCRIPTION ----------------
     with st.spinner("⏳ Converting speech to text..."):
-        text = transcribe_audio(file_path)
+        text = transcribe_audio(file_path, language, mode)
 
     if not text:
         st.error("⚠️ Transcription failed")
